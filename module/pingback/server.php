@@ -27,6 +27,9 @@ namespace pingback;
 
 use PSX_ModuleAbstract;
 use PSX_Base;
+use PSX_Exception;
+use Zend_XmlRpc_Server;
+use Zend_XmlRpc_Server_Fault;
 
 /**
  * xrds
@@ -42,27 +45,31 @@ class server extends PSX_ModuleAbstract
 {
 	public function onLoad()
 	{
-		$res = xmlrpc_server_create();
-		xmlrpc_server_register_method($res, 'pingback.ping', array($this, 'handle'));
-		$resp = xmlrpc_server_call_method($res, PSX_Base::getRawInput(), null);
-		xmlrpc_server_destroy($res);
+		$server = new Zend_XmlRpc_Server();
+		$server->setClass($this, 'pingback');
+
+		Zend_XmlRpc_Server_Fault::attachFaultException('PSX_Exception');
 
 		header('Content-Type: text/xml');
-		echo $resp;
+		echo $server->handle();
 	}
 
-	public function handle($name, $args)
+	/**
+	 * Handles the ping request
+	 *
+	 * @param string $sourceUri
+	 * @param string $targetUri
+	 * @return string
+	 */
+	public function ping($sourceUri, $targetUri)
 	{
-		if($args[1] == 'http://test.phpsx.org/pingback/resource')
+		if($targetUri == 'http://test.phpsx.org/pingback/resource')
 		{
 			return 'Successful';
 		}
 		else
 		{
-			return array(
-				'faultCode'   => 16,
-				'faultString' => 'Invalid target URI',
-			);
+			throw new PSX_Exception('Invalid target uri', 0);
 		}
 	}
 }

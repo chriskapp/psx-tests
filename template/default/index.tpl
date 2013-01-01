@@ -6,17 +6,16 @@
 
 <h2>Description</h2>
 
-<p><b>Welcome</b> to the testarea of the <a href="http://phpsx.org">PSX</a>
-framework. This is the testing website wich is used by the unit tests in the PSX
-framwork to test more complex cases. In order to help other projects with
-testing and to create interoperability libraries you can also use these testing 
-endpoints. Every test module has a description how you can use it for testing 
-and every test makes heavy use of HTTP status codes. If the test returns "2xx" 
-status code the request was successful. All errors wich are thrown by a test 
-have detailed informations about what went wrong. The following testing modules 
-are currently available. The sourcecode of this website if free available at 
-<a href="https://github.com/k42b3/psx-tests">github</a>. If a textcase doest not 
-behave correctly do not hesitate to contact me.</p>
+<p><b>Welcome</b> to the testarea of the PSX framework. This is the
+testing website wich is used by the unit tests in the PSX framwork to test more
+complex cases. In order to help other projects with testing and to create more
+interoperability between client and server implementations you can freely use
+these testing endpoints. Every test module has a description how you can use it.
+The tests makes heavy use of HTTP status codes. If the test returns "2xx" status
+code the request was successful. All errors wich are thrown by a test have
+detailed informations about what went wrong. The sourcecode of this website if 
+free available at <a href="https://github.com/k42b3/psx-tests">github</a>. If a 
+testcase doest not behave correctly do not hesitate to contact me.</p>
 
 
 <h2>Endpoints</h2>
