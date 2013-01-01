@@ -1,4 +1,4 @@
-psx-tests
+test.phpsx.org
 =========
 
 Welcome to the testarea of the PSX framework. This is the testing website wich 
