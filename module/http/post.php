@@ -25,8 +25,8 @@
 
 namespace http;
 
-use PSX_Base;
-use PSX_ModuleAbstract;
+use PSX\Base;
+use PSX\ModuleAbstract;
 
 /**
  * post
@@ -38,13 +38,13 @@ use PSX_ModuleAbstract;
  * @package    Http
  * @version    $Revision: 6 $
  */
-class post extends PSX_ModuleAbstract
+class post extends ModuleAbstract
 {
 	public function onLoad()
 	{
 		header('Content-type: text/plain');
 
-		switch(PSX_Base::getRequestMethod())
+		switch($this->getMethod())
 		{
 			case 'POST':
 
@@ -56,7 +56,7 @@ class post extends PSX_ModuleAbstract
 				header('HTTP/1.1 405 Method Not Allowed');
 				header('Allow: POST');
 
-				echo 'FAILURE ' . PSX_Base::getRequestMethod();
+				echo 'FAILURE ' . $this->getMethod();
 				break;
 		}
 	}

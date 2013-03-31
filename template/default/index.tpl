@@ -31,6 +31,7 @@ to contact me. The sourcecode of this website if free available at
 <h2>History</h2>
 
 <ul>
+	<li>30.03.2013 - Update psx library to version 0.5</li>
 	<li>01.01.2013 - Added pingback test</li>
 	<li>01.01.2013 - Added source to git repository</li>
 </ul>

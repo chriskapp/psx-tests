@@ -25,7 +25,7 @@
 
 namespace pubsubhubbub;
 
-use PSX_ModuleAbstract;
+use PSX\ModuleAbstract;
 
 /**
  * discover
@@ -37,7 +37,7 @@ use PSX_ModuleAbstract;
  * @package    PubSubHubBub
  * @version    $Revision: 3 $
  */
-class topic extends PSX_ModuleAbstract
+class topic extends ModuleAbstract
 {
 	private $hub;
 

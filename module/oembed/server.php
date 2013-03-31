@@ -25,14 +25,10 @@
 
 namespace oembed;
 
-use PSX_ModuleAbstract;
-use PSX_Oembed_Type_Link;
-use PSX_Oembed_Type_Photo;
-use PSX_Oembed_Type_Rich;
-use PSX_Oembed_Type_Video;
-use PSX_Exception;
-use PSX_Data_Writer_Json;
-use PSX_Data_Writer_Xml;
+use PSX\ModuleAbstract;
+use PSX\Oembed\Type;
+use PSX\Exception;
+use PSX\Data\Writer;
 
 /**
  * server
@@ -44,7 +40,7 @@ use PSX_Data_Writer_Xml;
  * @package    Oembed
  * @version    $Revision: 3 $
  */
-class server extends PSX_ModuleAbstract
+class server extends ModuleAbstract
 {
 	const TYPE_LINK  = 0x1;
 	const TYPE_PHOTO = 0x2;
@@ -74,14 +70,14 @@ class server extends PSX_ModuleAbstract
 		{
 			case $this->urls[self::TYPE_LINK]:
 
-				$type = new PSX_Oembed_Type_Link();
+				$type = new Type\Link();
 				$type->setType('link');
 
 				break;
 
 			case $this->urls[self::TYPE_PHOTO]:
 
-				$type = new PSX_Oembed_Type_Photo();
+				$type = new Type\Photo();
 				$type->setType('photo');
 				$type->setUrl('http://i2.ytimg.com/vi/AKjzEG1eItY/hqdefault.jpg');
 				$type->setWidth($maxWidth);
@@ -91,7 +87,7 @@ class server extends PSX_ModuleAbstract
 
 			case $this->urls[self::TYPE_RICH]:
 
-				$type = new PSX_Oembed_Type_Rich();
+				$type = new Type\Rich();
 				$type->setType('rich');
 				$type->setHtml('<iframe width="459" height="344" src="http://www.youtube.com/embed/AKjzEG1eItY?fs=1&feature=oembed" frameborder="0" allowfullscreen></iframe>');
 				$type->setWidth($maxWidth);
@@ -101,7 +97,7 @@ class server extends PSX_ModuleAbstract
 
 			case $this->urls[self::TYPE_VIDEO]:
 
-				$type = new PSX_Oembed_Type_Video();
+				$type = new Type\Video();
 				$type->setType('video');
 				$type->setHtml('<iframe width="459" height="344" src="http://www.youtube.com/embed/AKjzEG1eItY?fs=1&feature=oembed" frameborder="0" allowfullscreen></iframe>');
 				$type->setWidth($maxWidth);
@@ -111,7 +107,7 @@ class server extends PSX_ModuleAbstract
 
 			default:
 
-				throw new PSX_Exception('Url not found', 404);
+				throw new Exception('Url not found', 404);
 				break;
 		}
 
@@ -132,7 +128,7 @@ class server extends PSX_ModuleAbstract
 
 				header('Content-type: application/json+oembed');
 
-				$writer = new PSX_Data_Writer_Json();
+				$writer = new Writer\Json();
 				$writer->write($type);
 
 				break;
@@ -141,14 +137,14 @@ class server extends PSX_ModuleAbstract
 
 				header('Content-type: text/xml+oembed');
 
-				$writer = new PSX_Data_Writer_Xml();
+				$writer = new Writer\Xml();
 				$writer->write($type);
 
 				break;
 
 			default:
 
-				throw new PSX_Exception('Invalid format');
+				throw new Exception('Invalid format');
 
 				break;
 		}
@@ -156,6 +152,6 @@ class server extends PSX_ModuleAbstract
 
 	public function onPost()
 	{
-		throw new PSX_Exception('Method not allowed', 405);
+		throw new Exception('Method not allowed', 405);
 	}
 }

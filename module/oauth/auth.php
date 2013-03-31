@@ -25,7 +25,7 @@
 
 namespace oauth;
 
-use PSX_ModuleAbstract;
+use PSX\ModuleAbstract;
 
 /**
  * auth
@@ -37,7 +37,7 @@ use PSX_ModuleAbstract;
  * @package    Oauth
  * @version    $Revision: 3 $
  */
-class auth extends PSX_ModuleAbstract
+class auth extends ModuleAbstract
 {
 	const TOKEN    = 'hh5s93j4hdidpola';
 	const VERIFIER = 'hfdp7dh39dks9884';

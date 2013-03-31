@@ -25,8 +25,8 @@
 
 namespace oembed;
 
-use PSX_Module_ViewAbstract;
-use PSX_Url;
+use PSX\Module\ViewAbstract;
+use PSX\Url;
 
 /**
  * rich
@@ -38,11 +38,11 @@ use PSX_Url;
  * @package    Oembed
  * @version    $Revision: 3 $
  */
-class rich extends PSX_Module_ViewAbstract
+class rich extends ViewAbstract
 {
 	public function onLoad()
 	{
-		$url = new PSX_Url('http://test.phpsx.org/oembed/server');
+		$url = new Url('http://test.phpsx.org/oembed/server');
 		$url->addParam('url', 'http://test.phpsx.org/oembed/rich');
 
 		$this->template->assign('meta', array('<link rel="alternate" type="application/json+oembed" title="Oembed test" href="' . strval($url) . '" />'));

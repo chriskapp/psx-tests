@@ -25,11 +25,10 @@
 
 namespace pingback;
 
-use PSX_ModuleAbstract;
-use PSX_Base;
-use PSX_Exception;
-use Zend_XmlRpc_Server;
-use Zend_XmlRpc_Server_Fault;
+use PSX\ModuleAbstract;
+use PSX\Exception;
+use Zend\XmlRpc;
+use Zend\XmlRpc\Server\Fault;
 
 /**
  * xrds
@@ -41,14 +40,14 @@ use Zend_XmlRpc_Server_Fault;
  * @package    Yadis
  * @version    $Revision: 3 $
  */
-class server extends PSX_ModuleAbstract
+class server extends ModuleAbstract
 {
 	public function onLoad()
 	{
-		$server = new Zend_XmlRpc_Server();
+		$server = new XmlRpc\Server();
 		$server->setClass($this, 'pingback');
 
-		Zend_XmlRpc_Server_Fault::attachFaultException('PSX_Exception');
+		//Fault::attachFaultException('\PSX\Exception');
 
 		echo $server->handle();
 	}
@@ -68,7 +67,7 @@ class server extends PSX_ModuleAbstract
 		}
 		else
 		{
-			throw new PSX_Exception('Invalid target uri', 0);
+			throw new Exception('Invalid target uri', 0);
 		}
 	}
 }

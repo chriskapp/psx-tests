@@ -25,7 +25,7 @@
 
 namespace atom;
 
-use PSX_ModuleAbstract;
+use PSX\ModuleAbstract;
 
 /**
  * feed
@@ -37,7 +37,7 @@ use PSX_ModuleAbstract;
  * @package    Atom
  * @version    $Revision: 3 $
  */
-class feed extends PSX_ModuleAbstract
+class feed extends ModuleAbstract
 {
 	public function onLoad()
 	{

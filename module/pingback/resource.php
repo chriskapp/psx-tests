@@ -25,7 +25,7 @@
 
 namespace pingback;
 
-use PSX_Module_ViewAbstract;
+use PSX\Module\ViewAbstract;
 
 /**
  * xrds
@@ -37,7 +37,7 @@ use PSX_Module_ViewAbstract;
  * @package    Yadis
  * @version    $Revision: 3 $
  */
-class resource extends PSX_Module_ViewAbstract
+class resource extends ViewAbstract
 {
 	public function onLoad()
 	{

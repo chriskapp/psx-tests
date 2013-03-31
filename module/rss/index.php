@@ -25,7 +25,7 @@
 
 namespace rss;
 
-use PSX_Module_ViewAbstract;
+use PSX\Module\ViewAbstract;
 
 /**
  * index
@@ -37,7 +37,7 @@ use PSX_Module_ViewAbstract;
  * @package    Rss
  * @version    $Revision: 3 $
  */
-class index extends PSX_Module_ViewAbstract
+class index extends ViewAbstract
 {
 	public function onLoad()
 	{

@@ -25,18 +25,16 @@
 
 namespace pubsubhubbub;
 
-use PSX_ModuleAbstract;
-use PSX_Validate;
-use PSX_Post;
-use PSX_Filter_Length;
-use PSX_Filter_Url;
-use PSX_Filter_InArray;
-use PSX_Url;
-use PSX_Http;
-use PSX_Http_GetRequest;
-use PSX_Exception;
-use PSX_Atom;
-use PSX_Rss;
+use PSX\ModuleAbstract;
+use PSX\Validate;
+use PSX\Input;
+use PSX\Filter;
+use PSX\Url;
+use PSX\Http;
+use PSX\Http\GetRequest;
+use PSX\Exception;
+use PSX\Atom;
+use PSX\Rss;
 
 /**
  * hub
@@ -48,7 +46,7 @@ use PSX_Rss;
  * @package    PubSubHubBub
  * @version    $Revision: 8 $
  */
-class hub extends PSX_ModuleAbstract
+class hub extends ModuleAbstract
 {
 	private $topic;
 
@@ -94,25 +92,25 @@ class hub extends PSX_ModuleAbstract
 
 			default:
 
-				throw new PSX_Exception('Invalid mode');
+				throw new Exception('Invalid mode');
 		}
 	}
 
 	private function handleSubscription($mode)
 	{
-		$validate = new PSX_Validate();
-		$post     = new PSX_Post($validate);
+		$validate = new Validate();
+		$post     = new Input\Post($validate);
 
-		$callback      = $post->hub_callback('string', array(new PSX_Filter_Length(3, 256), new PSX_Filter_Url()), 'callback', 'Callback');
-		$topic         = $post->hub_topic('string', array(new PSX_Filter_Length(3, 256), new PSX_Filter_Url()), 'topic', 'Topic');
-		$verify        = $post->hub_verify('string', array(new PSX_Filter_InArray(array('sync', 'async'))), 'verify', 'Verify');
+		$callback      = $post->hub_callback('string', array(new Filter\Length(3, 256), new Filter\Url()), 'callback', 'Callback');
+		$topic         = $post->hub_topic('string', array(new Filter\Length(3, 256), new Filter\Url()), 'topic', 'Topic');
+		$verify        = $post->hub_verify('string', array(new Filter\InArray(array('sync', 'async'))), 'verify', 'Verify');
 		$lease_seconds = $post->hub_lease_seconds('integer');
-		$secret        = $post->hub_secret('string', array(new PSX_Filter_Length(0, 199)), 'secret', 'Secret');
+		$secret        = $post->hub_secret('string', array(new Filter\Length(0, 199)), 'secret', 'Secret');
 		$verify_token  = $post->hub_verify_token('string');
 
 		if(!$validate->hasError())
 		{
-			$callback = new PSX_Url($callback);
+			$callback = new Url($callback);
 
 			if($verify == 'sync')
 			{
@@ -129,8 +127,8 @@ class hub extends PSX_ModuleAbstract
 					$callback->addParam('hub.verify_token', $verify_token);
 				}
 
-				$http     = new PSX_Http();
-				$request  = new PSX_Http_GetRequest($callback);
+				$http     = new Http();
+				$request  = new GetRequest($callback);
 				$response = $http->request($request);
 
 				if($response->getCode() >= 200 && $response->getCode() < 300)
@@ -141,31 +139,31 @@ class hub extends PSX_ModuleAbstract
 					}
 					else
 					{
-						throw new PSX_Exception('Challenge is not echoed back');
+						throw new Exception('Challenge is not echoed back');
 					}
 				}
 				else
 				{
-					throw new PSX_Exception('No 2xx response code');
+					throw new Exception('No 2xx response code');
 				}
 			}
 			else if($verify == 'async')
 			{
-				throw new PSX_Exception('Only "sync" verification is at the moment supported');
+				throw new Exception('Only "sync" verification is at the moment supported');
 			}
 		}
 		else
 		{
-			throw new PSX_Exception($validate->getLastError());
+			throw new Exception($validate->getLastError());
 		}
 	}
 
 	private function handlePublish()
 	{
-		$validate = new PSX_Validate();
-		$post     = new PSX_Post($validate);
+		$validate = new Validate();
+		$post     = new Input\Post($validate);
 
-		$url = $post->hub_url('string', array(new PSX_Filter_Length(3, 256), new PSX_Filter_Url()));
+		$url = $post->hub_url('string', array(new Filter\Length(3, 256), new Filter\Url()));
 
 		if($url == $this->topic . '/atom' || $url == $this->topic . '/rss')
 		{
@@ -175,14 +173,14 @@ class hub extends PSX_ModuleAbstract
 		}
 		else
 		{
-			throw new PSX_Exception('Invalid topic');
+			throw new Exception('Invalid topic');
 		}
 	}
 
 	private function fetchContent()
 	{
-		$http     = new PSX_Http();
-		$request  = new PSX_Http_GetRequest(new PSX_Url($this->topic));
+		$http     = new Http();
+		$request  = new GetRequest(new Url($this->topic));
 		$response = $http->request($request);
 
 		if($response->getCode() == 200)
@@ -191,26 +189,26 @@ class hub extends PSX_ModuleAbstract
 
 			if($header['content-type'] == 'application/atom+xml')
 			{
-				$atom = new PSX_Atom();
+				$atom = new Atom();
 				$atom->import($response);
 
 				echo 'SUCCESS';
 			}
 			else if($header['content-type'] == 'application/rss+xml')
 			{
-				$rss = new PSX_Rss();
+				$rss = new Rss();
 				$rss->import($response);
 
 				echo 'SUCCESS';
 			}
 			else
 			{
-				throw new PSX_Exception('Invalid content type');
+				throw new Exception('Invalid content type');
 			}
 		}
 		else
 		{
-			throw new PSX_Exception('Invalid response code');
+			throw new Exception('Invalid response code');
 		}
 	}
 }

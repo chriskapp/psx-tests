@@ -25,12 +25,11 @@
 
 namespace webfinger;
 
-use PSX_ModuleAbstract;
-use PSX_Input_Get;
-use PSX_Validate;
-use PSX_Filter_Length;
-use PSX_Filter_Urldecode;
-use PSX_Exception;
+use PSX\ModuleAbstract;
+use PSX\Input;
+use PSX\Validate;
+use PSX\Filter;
+use PSX\Exception;
 
 /**
  * lrdd
@@ -42,14 +41,14 @@ use PSX_Exception;
  * @package    Webfinger
  * @version    $Revision: 3 $
  */
-class lrdd extends PSX_ModuleAbstract
+class lrdd extends ModuleAbstract
 {
 	public function onLoad()
 	{
 		header('Content-type: application/xrd+xml');
 
-		$get = new PSX_Input_Get(new PSX_Validate());
-		$uri = $get->uri('string', array(new PSX_Filter_Length(3, 256), new PSX_Filter_Urldecode()));
+		$get = new Input\Get(new Validate());
+		$uri = $get->uri('string', array(new Filter\Length(3, 256), new Filter\Urldecode()));
 
 		if(!empty($uri))
 		{
@@ -96,14 +95,14 @@ XRD;
 			}
 			else
 			{
-				throw new PSX_Exception('Invalid scheme');
+				throw new Exception('Invalid scheme');
 			}
 
 			echo $xrd;
 		}
 		else
 		{
-			throw new PSX_Exception('Invalid uri');
+			throw new Exception('Invalid uri');
 		}
 	}
 }

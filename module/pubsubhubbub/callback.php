@@ -25,11 +25,11 @@
 
 namespace pubsubhubbub;
 
-use PSX_PubSubHubBub_CallbackAbstract;
-use PSX_Atom;
-use PSX_Rss;
-use PSX_Exception;
-use PSX_Url;
+use PSX\PubSubHubBub\CallbackAbstract;
+use PSX\Atom;
+use PSX\Rss;
+use PSX\Exception;
+use PSX\Url;
 
 /**
  * callback
@@ -41,7 +41,7 @@ use PSX_Url;
  * @package    PubSubHubBub
  * @version    $Revision: 8 $
  */
-class callback extends PSX_PubSubHubBub_CallbackAbstract
+class callback extends CallbackAbstract
 {
 	public function onLoad()
 	{
@@ -50,7 +50,7 @@ class callback extends PSX_PubSubHubBub_CallbackAbstract
 		$this->handle();
 	}
 
-	public function onAtom(PSX_Atom $atom)
+	public function onAtom(Atom $atom)
 	{
 		if(isset($atom->entry[0]))
 		{
@@ -58,11 +58,11 @@ class callback extends PSX_PubSubHubBub_CallbackAbstract
 		}
 		else
 		{
-			throw new PSX_Exception('No entry available');
+			throw new Exception('No entry available');
 		}
 	}
 
-	public function onRss(PSX_Rss $rss)
+	public function onRss(Rss $rss)
 	{
 		if(isset($rss->item[0]))
 		{
@@ -70,11 +70,11 @@ class callback extends PSX_PubSubHubBub_CallbackAbstract
 		}
 		else
 		{
-			throw new PSX_Exception('No item available');
+			throw new Exception('No item available');
 		}
 	}
 
-	public function onVerify($mode, PSX_Url $topic, $leaseSeconds, $verifyToken)
+	public function onVerify($mode, Url $topic, $leaseSeconds, $verifyToken)
 	{
 		return true;
 	}

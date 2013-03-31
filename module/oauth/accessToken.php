@@ -25,11 +25,10 @@
 
 namespace oauth;
 
-use PSX_Oauth_Provider_AccessAbstract;
-use PSX_Oauth_Provider_Data_Consumer;
-use PSX_Oauth_Provider_Data_Request;
-use PSX_Oauth_Provider_Data_Response;
-use Exception;
+use PSX\Oauth\Provider\AccessAbstract;
+use PSX\Oauth\Provider\Data\Consumer;
+use PSX\Oauth\Provider\Data\Request;
+use PSX\Oauth\Provider\Data\Response;
 
 /**
  * accessToken
@@ -41,7 +40,7 @@ use Exception;
  * @package    Oauth
  * @version    $Revision: 11 $
  */
-class accessToken extends PSX_Oauth_Provider_AccessAbstract
+class accessToken extends AccessAbstract
 {
 	const CONSUMER_KEY    = 'dpf43f3p2l4k3l03';
 	const CONSUMER_SECRET = 'kd94hf93k423kf44';
@@ -56,7 +55,7 @@ class accessToken extends PSX_Oauth_Provider_AccessAbstract
 		{
 			$this->handle();
 		}
-		catch(Exception $e)
+		catch(\Exception $e)
 		{
 			header('HTTP/1.1 500 Internal Server Error');
 			header('Content-Type: text/plain');
@@ -74,13 +73,13 @@ class accessToken extends PSX_Oauth_Provider_AccessAbstract
 	{
 		if($consumerKey == self::CONSUMER_KEY && $token == self::TOKEN)
 		{
-			return new PSX_Oauth_Provider_Data_Consumer(self::CONSUMER_KEY, self::CONSUMER_SECRET, self::TOKEN, self::TOKEN_SECRET);
+			return new Consumer(self::CONSUMER_KEY, self::CONSUMER_SECRET, self::TOKEN, self::TOKEN_SECRET);
 		}
 	}
 
-	protected function getResponse(PSX_Oauth_Provider_Data_Consumer $consumer, PSX_Oauth_Provider_Data_Request $request)
+	protected function getResponse(Consumer $consumer, Request $request)
 	{
-		$response = new PSX_Oauth_Provider_Data_Response();
+		$response = new Response();
 
 		$response->setToken('nnch734d00sl2jdk');
 		$response->setTokenSecret('pfkkdhi9sl3r4s00');

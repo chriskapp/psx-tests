@@ -25,7 +25,7 @@
 
 namespace http;
 
-use PSX_ModuleAbstract;
+use PSX\ModuleAbstract;
 
 /**
  * redirect
@@ -37,7 +37,7 @@ use PSX_ModuleAbstract;
  * @package    Http
  * @version    $Revision: 6 $
  */
-class redirect extends PSX_ModuleAbstract
+class redirect extends ModuleAbstract
 {
 	public function onLoad()
 	{

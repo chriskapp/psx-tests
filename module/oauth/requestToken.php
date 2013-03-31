@@ -25,10 +25,10 @@
 
 namespace oauth;
 
-use PSX_Oauth_Provider_RequestAbstract;
-use PSX_Oauth_Provider_Data_Consumer;
-use PSX_Oauth_Provider_Data_Request;
-use PSX_Oauth_Provider_Data_Response;
+use PSX\Oauth\Provider\RequestAbstract;
+use PSX\Oauth\Provider\Data\Consumer;
+use PSX\Oauth\Provider\Data\Request;
+use PSX\Oauth\Provider\Data\Response;
 use Exception;
 
 /**
@@ -41,7 +41,7 @@ use Exception;
  * @package    Oauth
  * @version    $Revision: 11 $
  */
-class requestToken extends PSX_Oauth_Provider_RequestAbstract
+class requestToken extends RequestAbstract
 {
 	const CONSUMER_KEY    = 'dpf43f3p2l4k3l03';
 	const CONSUMER_SECRET = 'kd94hf93k423kf44';
@@ -73,13 +73,13 @@ class requestToken extends PSX_Oauth_Provider_RequestAbstract
 	{
 		if($consumerKey == self::CONSUMER_KEY)
 		{
-			return new PSX_Oauth_Provider_Data_Consumer(self::CONSUMER_KEY, self::CONSUMER_SECRET);
+			return new Consumer(self::CONSUMER_KEY, self::CONSUMER_SECRET);
 		}
 	}
 
-	protected function getResponse(PSX_Oauth_Provider_Data_Consumer $consumer, PSX_Oauth_Provider_Data_Request $request)
+	protected function getResponse(Consumer $consumer, Request $request)
 	{
-		$response = new PSX_Oauth_Provider_Data_Response();
+		$response = new Response();
 
 		$response->setToken(self::TOKEN);
 		$response->setTokenSecret(self::TOKEN_SECRET);

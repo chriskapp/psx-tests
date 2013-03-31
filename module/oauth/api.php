@@ -25,8 +25,8 @@
 
 namespace oauth;
 
-use PSX_Oauth_ProviderAbstract;
-use PSX_Oauth_Provider_Data_Consumer;
+use PSX\Oauth\ProviderAbstract;
+use PSX\Oauth\Provider\Data\Consumer;
 use Exception;
 
 /**
@@ -39,7 +39,7 @@ use Exception;
  * @package    Oauth
  * @version    $Revision: 8 $
  */
-class api extends PSX_Oauth_ProviderAbstract
+class api extends ProviderAbstract
 {
 	const CONSUMER_KEY    = 'dpf43f3p2l4k3l03';
 	const CONSUMER_SECRET = 'kd94hf93k423kf44';
@@ -71,7 +71,7 @@ class api extends PSX_Oauth_ProviderAbstract
 	{
 		if($consumerKey == self::CONSUMER_KEY && $token == self::TOKEN)
 		{
-			return new PSX_Oauth_Provider_Data_Consumer(self::CONSUMER_KEY, self::CONSUMER_SECRET, self::TOKEN, self::TOKEN_SECRET);
+			return new Consumer(self::CONSUMER_KEY, self::CONSUMER_SECRET, self::TOKEN, self::TOKEN_SECRET);
 		}
 	}
 

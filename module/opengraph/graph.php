@@ -25,7 +25,7 @@
 
 namespace opengraph;
 
-use PSX_ModuleAbstract;
+use PSX\ModuleAbstract;
 
 /**
  * graph
@@ -37,7 +37,7 @@ use PSX_ModuleAbstract;
  * @package    Opengraph
  * @version    $Revision: 6 $
  */
-class graph extends PSX_ModuleAbstract
+class graph extends ModuleAbstract
 {
 	public function onLoad()
 	{

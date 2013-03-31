@@ -25,7 +25,7 @@
 
 namespace yadis;
 
-use PSX_ModuleAbstract;
+use PSX\ModuleAbstract;
 
 /**
  * xrds
@@ -37,7 +37,7 @@ use PSX_ModuleAbstract;
  * @package    Yadis
  * @version    $Revision: 3 $
  */
-class xrds extends PSX_ModuleAbstract
+class xrds extends ModuleAbstract
 {
 	public function onLoad()
 	{

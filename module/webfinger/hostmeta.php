@@ -25,7 +25,7 @@
 
 namespace webfinger;
 
-use PSX_ModuleAbstract;
+use PSX\ModuleAbstract;
 
 /**
  * hostmeta
@@ -37,7 +37,7 @@ use PSX_ModuleAbstract;
  * @package    Webfinger
  * @version    $Revision: 3 $
  */
-class hostmeta extends PSX_ModuleAbstract
+class hostmeta extends ModuleAbstract
 {
 	public function onLoad()
 	{
